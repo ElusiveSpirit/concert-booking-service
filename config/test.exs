@@ -17,3 +17,5 @@ config :concert_booking, ConcertBooking.Repo,
   database: "concert_booking_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :comeonin, bcrypt_log_rounds: 4
