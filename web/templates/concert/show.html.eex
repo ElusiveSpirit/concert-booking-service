@@ -1,0 +1,28 @@
+<h2>Show concert</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @concert.name %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @concert.description %>
+  </li>
+
+  <li>
+    <strong>Date:</strong>
+    <%= @concert.date %>
+  </li>
+
+  <li>
+    <strong>Picture:</strong>
+    <%= @concert.picture %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: concert_path(@conn, :edit, @concert) %>
+<%= link "Back", to: concert_path(@conn, :index) %>

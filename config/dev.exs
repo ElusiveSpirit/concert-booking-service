@@ -41,3 +41,7 @@ config :concert_booking, ConcertBooking.Repo,
   database: "concert_booking_dev",
   hostname: "localhost",
   pool_size: 10
+
+# Configure Arc uploads lib
+config :arc,
+  storage: Arc.Storage.Local

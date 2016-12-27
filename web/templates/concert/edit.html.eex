@@ -1,0 +1,6 @@
+<h2>Edit concert</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: concert_path(@conn, :update, @concert) %>
+
+<%= link "Back", to: concert_path(@conn, :index) %>
