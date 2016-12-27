@@ -23,7 +23,7 @@
 		  <br>
 		  <%= link "Log out", to: session_path(@conn, :delete, user.id), method: :delete %>
 		<% else %>
-		  <%= link "Log in", to: session_path(@conn, :new) %>
+                  <%= link "Log in", to: session_path(@conn, :new, next: @conn.request_path)  %>
 		<% end %>
 	    </li>
           </ul>

@@ -7,14 +7,16 @@ defmodule ConcertBooking.SessionController do
   plug :scrub_params, "user" when action in [:create]
 
 
-  def new(conn, _params) do
-    render conn, "new.html", changeset: User.changeset(%User{})
+  def new(conn, params) do
+    render conn, "new.html", changeset: User.changeset(%User{}), next: params["next"]
   end
 
-  def create(conn, %{"user" => %{"username" => username, "password" => password}})
+  def create(conn, %{"user" => %{"username" => username, "password" => password}, "next" => next})
   when not is_nil(username) and not is_nil(password) do
     user = Repo.get_by(User, username: username)
-    sign_in(user, password, conn)
+    if next == "", do: next = "/"
+
+    sign_in(user, password, next, conn)
   end
 
   def create(conn, _) do
@@ -28,16 +30,16 @@ defmodule ConcertBooking.SessionController do
     |> redirect(to: page_path(conn, :index))
   end
 
-  defp sign_in(user, password, conn) when is_nil(user) do
+  defp sign_in(user, _password, _next, conn) when is_nil(user) do
     failed_login(conn)
   end
 
-  defp sign_in(user, password, conn) do
+  defp sign_in(user, password, next, conn) do
     if checkpw(password, user.password_digest) do
       conn
       |> put_session(:current_user, %{id: user.id, username: user.username})
       |> put_flash(:info, "Sign in successful!")
-      |> redirect(to: page_path(conn, :index))
+      |> redirect(to: next)
     else
       failed_login(conn)
     end
