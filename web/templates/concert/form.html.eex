@@ -27,6 +27,8 @@
     <%= label f, :picture, class: "control-label" %>
     <%= file_input f, :picture, class: "form-control" %>
     <%= error_tag f, :picture %>
+
+    <img style="padding:5px 0px" src="<%= ConcertBooking.Picture.url({@changeset.data.picture, @changeset.data}, :thumb) %>"></img>
   </div>
 
   <div class="form-group">

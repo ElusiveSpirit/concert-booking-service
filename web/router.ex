@@ -20,6 +20,7 @@ defmodule ConcertBooking.Router do
     resources "/users", UserController
     resources "/sessions", SessionController, only: [:new, :create, :delete]
     resources "/concerts", ConcertController
+    resources "/booking", BookingController, only: [:create]
   end
 
   # Other scopes may use custom stacks.

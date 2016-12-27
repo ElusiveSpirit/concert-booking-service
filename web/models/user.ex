@@ -7,11 +7,14 @@ defmodule ConcertBooking.User do
     field :email, :string
     field :password_digest, :string
 
+    many_to_many :concerts, ConcertBooking.Concert, join_through: "users_concerts"
+
     timestamps()
 
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
   end
+
 
   @doc """
   Builds a changeset based on the `struct` and `params`.

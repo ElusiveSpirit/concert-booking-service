@@ -19,10 +19,26 @@
 
   <li>
     <strong>Picture:</strong>
-    <%= @concert.picture %>
+    <%= @concert.picture.file_name %>
+    <br>
+    <img src="<%= ConcertBooking.Picture.url({@concert.picture, @concert}, :thumb) %>"></img>
   </li>
 
+  <li>
+    <strong>Users count:</strong>
+    <%= length @users %>
+
+    <%= if not @is_booked_ticket do %>
+      <%= form_for @conn, booking_path(@conn, :create), [as: :book], fn f -> %>
+        <input type="hidden" name="concert_id" value="<%= @concert.id %>" />
+        <%= submit "Book ticket", class: "btn btn-primary" %>
+      <% end %>
+    <% else %>
+      <br>
+      You've booked a ticket
+    <% end %>
+  </li>
 </ul>
 
-<%= link "Edit", to: concert_path(@conn, :edit, @concert) %>
-<%= link "Back", to: concert_path(@conn, :index) %>
+<%= link "Edit", to: concert_path(@conn, :edit, @concert), class: "btn btn-default", style: "margin-right: 10px" %>
+<%= link "Back", to: concert_path(@conn, :index), class: "btn btn-default" %>

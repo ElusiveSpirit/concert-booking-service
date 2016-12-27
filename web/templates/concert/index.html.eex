@@ -17,7 +17,7 @@
       <td><%= concert.name %></td>
       <td><%= concert.description %></td>
       <td><%= concert.date %></td>
-      <td><img src="<%= ConcertBooking.Picture.url({concert.picture, concert}) %>"></img></td>
+      <td><img src="<%= ConcertBooking.Picture.url({concert.picture, concert}, :thumb) %>"></img></td>
 
       <td class="text-right">
         <%= link "Show", to: concert_path(@conn, :show, concert), class: "btn btn-default btn-xs" %>
