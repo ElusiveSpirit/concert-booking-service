@@ -27,15 +27,9 @@ defmodule ConcertBooking.ConcertController do
   end
 
   def show(conn, %{"id" => id}) do
-    concert = Repo.get!(Concert, id)
-    users = Repo.all(assoc(concert, :users))
-    user = get_session(conn, :current_user)
+    [concert] = Repo.all(from(c in Concert, where: c.id == ^id, preload: :users))
 
-    render(conn, "show.html",
-      concert: concert,
-      users: users,
-      is_booked_ticket: user["id"] in users
-    )
+    render(conn, "show.html", concert: concert)
   end
 
   def edit(conn, %{"id" => id}) do

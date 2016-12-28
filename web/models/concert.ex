@@ -8,7 +8,8 @@ defmodule ConcertBooking.Concert do
     field :date, Ecto.Date
     field :picture, ConcertBooking.Picture.Type
 
-    many_to_many :users, ConcertBooking.User, join_through: "users_concerts"
+    many_to_many :users, ConcertBooking.User,
+      join_through: "users_concerts"
 
     timestamps()
   end

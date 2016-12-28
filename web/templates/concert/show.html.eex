@@ -26,17 +26,21 @@
 
   <li>
     <strong>Users count:</strong>
-    <%= length @users %>
+    <%= length @concert.users %>
 
     <%= if @current_user do %>
-      <%= if not @is_booked_ticket do %>
-        <%= form_for @conn, booking_path(@conn, :create), [as: :book], fn _ -> %>
+      <%= if not @current_user in @concert.users do %>
+        <%= form_for @conn, booking_path(@conn, :book), [as: :book], fn _ -> %>
           <input type="hidden" name="concert_id" value="<%= @concert.id %>" />
           <%= submit "Book ticket", class: "btn btn-primary" %>
         <% end %>
       <% else %>
         <br>
         You've booked a ticket
+        <%= form_for @conn, booking_path(@conn, :unbook), [as: :book], fn _ -> %>
+          <input type="hidden" name="concert_id" value="<%= @concert.id %>" />
+          <%= submit "Unbook ticket" %>
+        <% end %>
       <% end %>
     <% else %>
       <br>
