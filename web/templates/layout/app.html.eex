@@ -17,7 +17,7 @@
         <nav role="navigation">
           <ul class="nav nav-pills pull-right">
 	    <li>
-		<%= if user = current_user(@conn) do %>
+		<%= if user = @current_user do %>
 		  Logged in as
 		  <strong><%= user.username %></strong>
 		  <br>

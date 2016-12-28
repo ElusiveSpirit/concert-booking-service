@@ -19,7 +19,7 @@ defmodule ConcertBooking.Mixfile do
   def application do
     [mod: {ConcertBooking, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :comeonin]]
+                    :phoenix_ecto, :postgrex, :comeonin, :guardian]]
   end
 
   # Specifies which paths to compile per environment.
@@ -40,7 +40,8 @@ defmodule ConcertBooking.Mixfile do
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 2.3"},
      {:arc, "~> 0.6.0"},
-     {:arc_ecto, "~> 0.5.0-rc1"}]
+     {:arc_ecto, "~> 0.5.0-rc1"},
+     {:guardian, "~> 0.12.0"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

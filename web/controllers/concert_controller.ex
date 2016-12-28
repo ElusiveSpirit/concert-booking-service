@@ -29,11 +29,12 @@ defmodule ConcertBooking.ConcertController do
   def show(conn, %{"id" => id}) do
     concert = Repo.get!(Concert, id)
     users = Repo.all(assoc(concert, :users))
+    user = get_session(conn, :current_user)
 
     render(conn, "show.html",
       concert: concert,
       users: users,
-      is_booked_ticket: 1 in users
+      is_booked_ticket: user["id"] in users
     )
   end
 

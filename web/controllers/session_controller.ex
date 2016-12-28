@@ -14,7 +14,7 @@ defmodule ConcertBooking.SessionController do
   def create(conn, %{"user" => %{"username" => username, "password" => password}, "next" => next})
   when not is_nil(username) and not is_nil(password) do
     user = Repo.get_by(User, username: username)
-    if next == "", do: next = "/"
+    next = if next == "", do: "/", else: next
 
     sign_in(user, password, next, conn)
   end
@@ -25,7 +25,8 @@ defmodule ConcertBooking.SessionController do
 
   def delete(conn, _params) do
     conn
-    |> delete_session(:current_user)
+    |> Guardian.Plug.sign_out()
+  # |> delete_session(:current_user)
     |> put_flash(:info, "Signed out successfully!")
     |> redirect(to: page_path(conn, :index))
   end
@@ -37,7 +38,8 @@ defmodule ConcertBooking.SessionController do
   defp sign_in(user, password, next, conn) do
     if checkpw(password, user.password_digest) do
       conn
-      |> put_session(:current_user, %{id: user.id, username: user.username})
+      |> Guardian.Plug.sign_in(user)
+    # |> put_session(:current_user, %{id: user.id, username: user.username})
       |> put_flash(:info, "Sign in successful!")
       |> redirect(to: next)
     else
@@ -48,7 +50,7 @@ defmodule ConcertBooking.SessionController do
   defp failed_login(conn) do
     dummy_checkpw()
     conn
-    |> put_session(:current_user, nil)
+  # |> put_session(:current_user, nil)
     |> put_flash(:error, "Invalid username/password combination!")
     |> redirect(to: session_path(conn, :new))
     |> halt()

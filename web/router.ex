@@ -7,6 +7,10 @@ defmodule ConcertBooking.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+
+    plug Guardian.Plug.VerifySession
+    plug Guardian.Plug.LoadResource
+    plug ConcertBooking.CurrentUser
   end
 
   pipeline :api do
