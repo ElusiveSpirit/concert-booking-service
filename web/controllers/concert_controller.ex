@@ -17,7 +17,10 @@ defmodule ConcertBooking.ConcertController do
     concerts = Repo.all(from(c in Concert,
       limit: @page_size,
       offset: ^((page - 1) * @page_size)))
-    json conn, Enum.map(concerts, &Concert.serialize(&1))
+    json conn, %{
+      "page" => page,
+      "data" => Enum.map(concerts, &Concert.serialize(&1))
+    }
   end
 
   def index_api(conn, _) do

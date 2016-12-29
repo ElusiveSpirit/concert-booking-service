@@ -11,7 +11,7 @@
       <th></th>
     </tr>
   </thead>
-  <tbody>
+  <tbody class="js-concert-list">
 <%= for concert <- @concerts do %>
     <tr>
       <td><%= concert.name %></td>
@@ -22,11 +22,11 @@
       <td class="text-right">
         <%= link "Show", to: concert_path(@conn, :show, concert), class: "btn btn-default btn-xs" %>
         <%= link "Edit", to: concert_path(@conn, :edit, concert), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: concert_path(@conn, :delete, concert), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
+<button page="1" class="js-load-concert">Load more</button>
 
 <%= link "New concert", to: concert_path(@conn, :new) %>

@@ -25,6 +25,7 @@ defmodule ConcertBooking.Concert do
   end
 
   def serialize(obj) do
+    IO.inspect ConcertBooking.Picture.url({obj.picture, obj}, :thumb)
     %{
       "id" => obj.id,
       "name" => obj.name,
