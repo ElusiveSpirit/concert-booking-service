@@ -27,6 +27,7 @@
 <% end %>
   </tbody>
 </table>
-<button page="1" class="js-load-concert">Load more</button>
+<button page="1" class="js-load-concert btn btn-default btn-lg btn-block">Load more</button>
+<br>
 
 <%= link "New concert", to: concert_path(@conn, :new) %>
