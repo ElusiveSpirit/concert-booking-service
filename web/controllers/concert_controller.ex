@@ -1,11 +1,30 @@
 defmodule ConcertBooking.ConcertController do
   use ConcertBooking.Web, :controller
+  import Ecto.Query, only: [from: 2]
 
   alias ConcertBooking.Concert
 
+
+  @page_size 1
+
   def index(conn, _params) do
-    concerts = Repo.all(Concert)
+    concerts = Repo.all(from(c in Concert, limit: @page_size))
     render(conn, "index.html", concerts: concerts)
+  end
+
+  def index_api(conn, %{"page" => page}) do
+    page = String.to_integer(page)
+    concerts = Repo.all(from(c in Concert,
+      limit: @page_size,
+      offset: ^((page - 1) * @page_size)))
+    json conn, Enum.map(concerts, &Concert.serialize(&1))
+  end
+
+  def index_api(conn, _) do
+    json conn, %{
+      "code" => "404",
+      "message" => "Not found"
+    }
   end
 
   def new(conn, _params) do

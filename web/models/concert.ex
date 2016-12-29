@@ -23,4 +23,14 @@ defmodule ConcertBooking.Concert do
     |> cast_attachments(params, [:picture])
     |> validate_required([:name, :description, :date, :picture])
   end
+
+  def serialize(obj) do
+    %{
+      "id" => obj.id,
+      "name" => obj.name,
+      "description" => obj.description,
+      "date" => obj.date,
+      "picture" => ConcertBooking.Picture.url({obj.picture, obj}, :thumb)
+    }
+  end
 end
