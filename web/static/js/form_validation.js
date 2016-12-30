@@ -45,7 +45,7 @@
 
             setError(concert_name);
             if (concert_name.value === "") {
-                //setError(concert_name, "Can't be empty");
+                setError(concert_name, "Can't be empty");
             }
 
             setError(concert_description);

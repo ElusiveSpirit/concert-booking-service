@@ -37,7 +37,7 @@ config :phoenix, :stacktrace_depth, 20
 config :concert_booking, ConcertBooking.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
-  password: "0000",
+  password: "postgres",
   database: "concert_booking_dev",
   hostname: "localhost",
   pool_size: 10
