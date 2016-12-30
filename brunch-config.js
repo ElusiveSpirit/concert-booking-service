@@ -22,6 +22,7 @@ exports.config = {
     stylesheets: {
       joinTo: "css/app.css",
       order: {
+        before: ["web/static/css/modal.css"],
         after: ["web/static/css/app.css"] // concat app.css last
       }
     },
@@ -59,7 +60,10 @@ exports.config = {
 
   modules: {
     autoRequire: {
-      "js/app.js": ["web/static/js/app"]
+      "js/app.js": ["web/static/js/app"],
+      "js/booking.js": ["web/static/js/booking"],
+      "js/form_validation.js": ["web/static/js/form_validation"],
+      "js/progressive-loading.js": ["web/static/js/progressive-loading"]
     }
   },
 

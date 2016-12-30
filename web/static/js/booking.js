@@ -9,7 +9,6 @@
         let action = form.action.split("/");
         action = action[action.length - 1];
 
-        console.log(action);
         form.addEventListener("submit", event => {
             event.preventDefault();
 
@@ -26,7 +25,6 @@
             })
             .then(responce => responce.json())
             .then(data => {
-                console.log(data);
 
                 if (data.action) {
                     if (data.action === "create") {
