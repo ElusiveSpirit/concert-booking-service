@@ -39,14 +39,26 @@ defmodule ConcertBooking.ConcertController do
     changeset = Concert.changeset(%Concert{}, concert_params)
 
     case Repo.insert(changeset) do
-      {:ok, _concert} ->
+      {:ok, concert} ->
         conn
         |> put_flash(:info, "Concert created successfully.")
-        |> redirect(to: concert_path(conn, :index))
+        |> redirect(to: concert_path(conn, :show, concert.id))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
   end
+
+  def create_api(conn, %{"concert" => concert_params}) do
+    changeset = Concert.changeset(%Concert{}, concert_params)
+
+    case Repo.insert(changeset) do
+      {:ok, concert} ->
+        json conn, %{ "redirect_url" => concert_path(conn, :show, concert.id) }
+      {:error, changeset} ->
+        json conn, %{ "errors" => inspect(changeset.errors) }
+    end
+  end
+
 
   def show(conn, %{"id" => id}) do
     [concert] = Repo.all(from(c in Concert, where: c.id == ^id, preload: :users))

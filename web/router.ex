@@ -36,6 +36,7 @@ defmodule ConcertBooking.Router do
     pipe_through [:api, :session]
 
     get "/concerts", ConcertController, :index_api
+    post "/concerts/create", ConcertController, :create_api
 
     post "/book", BookingController, :book_api
     post "/unbook", BookingController, :unbook_api
