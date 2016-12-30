@@ -3,10 +3,12 @@
 
     let btn = document.querySelector(".js-load-concert");
     let table = document.querySelector(".js-concert-list");
+    let already = false;
 
     if (btn) {
         btn.addEventListener("click", event => {
             event.preventDefault();
+            already = true;
             let page = Number(btn.getAttribute("page")) + 1;
 
             fetch(`/api/concerts?page=${page}`)
@@ -16,6 +18,7 @@
                     btn.setAttribute("page",  data.page);
 
                     table.insertAdjacentHTML("beforeEnd", html);
+                    already = false;
                 });
         });
     }
@@ -36,4 +39,15 @@
         `;
     }
 
+	window.onscroll = function() {
+		var scrollHeight = Math.max(
+			document.body.scrollHeight, document.documentElement.scrollHeight,
+			document.body.offsetHeight, document.documentElement.offsetHeight,
+			document.body.clientHeight, document.documentElement.clientHeight
+		);
+		var scrolled = window.pageYOffset || document.documentElement.scrollTop;
+		if (!already && scrollHeight - scrolled <= document.documentElement.clientHeight + 200) {
+		    btn.click();
+		}
+	}
 })();
