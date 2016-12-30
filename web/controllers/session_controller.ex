@@ -14,7 +14,7 @@ defmodule ConcertBooking.SessionController do
   def create(conn, %{"user" => %{"username" => username, "password" => password}, "next" => next})
   when not is_nil(username) and not is_nil(password) do
     user = Repo.get_by(User, username: username)
-    next = if next == "", do: "/", else: next
+    next = if next == "", do: "/concerts", else: next
 
     sign_in(user, password, next, conn)
   end

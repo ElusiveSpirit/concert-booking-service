@@ -99,7 +99,8 @@ defmodule ConcertBooking.BookingController do
       nil  -> failed_booking_api(conn)
       user ->
         action = update_booking(concert, user, action)
-        [[count]] = Ecto.Adapters.SQL.query!(Repo, "SELECT COUNT(user_id) FROM users_concerts", []).rows
+        [[count]] = Ecto.Adapters.SQL.query!(Repo, "SELECT COUNT(user_id) FROM users_concerts WHERE concert_id = $1",
+                                             [String.to_integer(concert_id)]).rows
         json conn, %{ "action" => action, "count" => count }
     end
   end
