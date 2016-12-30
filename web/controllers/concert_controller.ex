@@ -5,7 +5,7 @@ defmodule ConcertBooking.ConcertController do
   alias ConcertBooking.Concert
 
 
-  @page_size 1
+  @page_size 10
 
   def index(conn, _params) do
     concerts = Repo.all(from(c in Concert, limit: @page_size))
